@@ -1,12 +1,16 @@
+import { useState } from 'react';
 import { CORE_CONCEPTS } from './data.js'; // Ensure data.js is exporting CORE_CONCEPTS correctly
 import Header from './components/Header/Header.jsx';
 import CoreConcept from './components/CoreConcept.jsx';
 import TabButton from './components/TabButton.jsx';
+import { EXAMPLES } from './data.js';
 
 function App() {
+  const [selectedTopic, setSelectedTopic] = useState();
 
-  function handleSelect(){
-    console.log('Button clicked');
+  function handleSelect(selectedButton) {
+    setSelectedTopic(selectedButton);  // Update selectedTopic here
+    console.log(selectedButton);       // Logging selected topic correctly
   }
 
   return (
@@ -29,12 +33,21 @@ function App() {
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            <TabButton onSelect={handleSelect}>Components</TabButton>
-            <TabButton onSelect={handleSelect}>JSX</TabButton>
-            <TabButton onSelect={handleSelect}>Props</TabButton>
-            <TabButton onSelect={handleSelect}>State</TabButton>
+            <TabButton onSelect={() => handleSelect('components')}>Components</TabButton>
+            <TabButton onSelect={() => handleSelect('jsx')}>JSX</TabButton>
+            <TabButton onSelect={() => handleSelect('props')}>Props</TabButton>
+            <TabButton onSelect={() => handleSelect('state')}>State</TabButton>
           </menu>
-          Dynamic Content 
+         {!selectedTopic ? <p>Please select a topic.</p> : null}
+         {selectedTopic ?  <div id="tab-content">
+          <h3>{EXAMPLES[selectedTopic].title}</h3>
+          <p>{EXAMPLES[selectedTopic].description}</p>
+          <pre>
+            <code>
+            {EXAMPLES[selectedTopic].code}
+            </code>
+          </pre>
+         </div> : null}
         </section>
       </main>
     </div>
