@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { CORE_CONCEPTS, EXAMPLES } from './data.js'; // Ensure data.js is exporting correctly
+// Ensure data.js is exporting correctly
 import Header from './components/Header/Header.jsx';
-import CoreConcept from './components/CoreConcept.jsx';
 import TabButton from './components/TabButton.jsx';
+import CoreConcepts from './components/CoreConcept.jsx';
+import { EXAMPLES } from './data.js';
 
 function App() {
   const [selectedTopic, setSelectedTopic] = useState(null); // Set initial state to null
@@ -13,18 +14,10 @@ function App() {
   }
 
   return (
-    <div>
+    <>
       <Header />
       <main>
-        <section id="core-concepts">
-          <h2>Core Concepts!</h2>
-          <ul>
-          {CORE_CONCEPTS.map((conceptItem)=> (
-          <CoreConcept key={conceptItem.title} {...conceptItem} />
-            ))}
-          </ul>
-        </section>
-
+      <CoreConcepts/>
         <section id="examples">
           <h2>Examples</h2>
           <menu>
